@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "504782123009",
+    "project_id": "firbasepart",
+    "storage_bucket": "firbasepart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504782123009:android:9f62be4bae08bd77425000",
+        "android_client_info": {
+          "package_name": "com.example.firebasepartt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504782123009-18j22q4hmrpgrtqlmvqbdof3onm925k0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWrlCmru1OIohzANGXdx1bqabKJtQ7bEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504782123009-18j22q4hmrpgrtqlmvqbdof3onm925k0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
