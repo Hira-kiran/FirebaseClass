@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +35,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(label: Text("Email")),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "please enter your Email";
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
                   obscureText: true,
@@ -51,21 +58,34 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           ElevatedButton(
               onPressed: () {
-                _auth
-                    .signInWithEmailAndPassword(
-                        email: emailController.text.toString(),
-                        password: passwordController.text.toString())
-                    .then((value) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
-                  return ToastMessage().toastmsj("Login Successfully");
-                }).onError((error, stackTrace) {
-                  return ToastMessage().toastmsj(error.toString());
-                });
+                if (formKey.currentState!.validate()) {
+                  setState(() {
+                    loading = true;
+                  });
+                  _auth
+                      .signInWithEmailAndPassword(
+                          email: emailController.text.toString(),
+                          password: passwordController.text.toString())
+                      .then((value) {
+                    setState(() {
+                      loading = false;
+                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
+                    return ToastMessage().toastmsj("Login Successfully");
+                  }).onError((error, stackTrace) {
+                    setState(() {
+                      loading = false;
+                    });
+                    return ToastMessage().toastmsj(error.toString());
+                  });
+                }
               },
-              child: const Text("Login"))
+              child: loading == true
+                  ? const CircularProgressIndicator()
+                  : const Text("Login"))
         ],
       ),
     );
